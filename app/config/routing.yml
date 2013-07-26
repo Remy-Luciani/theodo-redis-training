@@ -1,0 +1,5 @@
+theodo_redis_training:
+    resource: "@TheodoRedisTrainingBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
