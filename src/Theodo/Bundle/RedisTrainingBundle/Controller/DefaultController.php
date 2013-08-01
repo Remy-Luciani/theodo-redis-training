@@ -13,7 +13,11 @@ class DefaultController extends Controller
      * @Template()
      */
     public function indexAction($name)
-    {
-        return array('name' => $name);
+    {	
+	$redis = $this->get('snc_redis.default');
+	$redis->append('names', $name . ", ");
+        $names = $redis->get('names');
+
+        return array('names' => $names);
     }
 }
