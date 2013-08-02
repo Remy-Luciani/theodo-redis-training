@@ -19,7 +19,8 @@
         "sensio/framework-extra-bundle": "2.3.*",
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
-	"snc/redis-bundle": "1.1.x-dev"
+	"snc/redis-bundle": "1.1.x-dev",
+	"predis/predis": "0.8.x"
     },
     "scripts": {
         "post-install-cmd": [
