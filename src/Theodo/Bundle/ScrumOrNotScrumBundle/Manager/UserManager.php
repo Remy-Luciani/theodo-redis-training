@@ -21,6 +21,10 @@ class UserManager
     public function register(User $user)
     {
         $uid = $this->redis->incr('global:nextUid');
-        $this->redis->set("user:$uid:name", $user->getName());
+
+        $name = $user->getName();
+
+        $this->redis->set("user:$uid:name", $name);
+        $this->redis->set("username:$name:uid", $uid);
     }
 }
