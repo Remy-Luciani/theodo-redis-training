@@ -2,8 +2,3 @@ theodo_scrum_or_not_scrum:
     resource: "@TheodoScrumOrNotScrumBundle/Resources/config/routing.yml"
     prefix:   /
 
-theodo_redis_training:
-    resource: "@TheodoRedisTrainingBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
