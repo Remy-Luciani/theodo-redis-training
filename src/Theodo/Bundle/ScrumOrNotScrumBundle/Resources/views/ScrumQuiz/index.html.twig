@@ -1,2 +1,7 @@
 <h1>Scrum, or not Scrum? That is the question</h1>
 <a href="{{ path('theodo_scrumornotscrum_scrumquiz_addscrumquiz') }}">Ajouter une question scrum</a>
+<ul>
+    {% for quiz in scrumQuizs %}
+        <li>{{ quiz.id }}</li>
+    {% endfor %}
+</ul>

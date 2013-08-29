@@ -20,7 +20,11 @@ class ScrumQuizController extends Controller
      */
     public function indexAction()
     {
-        return array();
+        $scrumQuizs = $this->get('theodo_scrum_or_not_scrum.manager.scrum_quiz')->findAll();
+
+        return array(
+            'scrumQuizs' => $scrumQuizs,
+        );
     }
 
     /**

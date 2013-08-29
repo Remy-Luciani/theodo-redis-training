@@ -31,11 +31,33 @@ class ScrumQuizManager
         $uid = $this->userManager->saveByName($quiz->getAuthorName());
 
         $quizId = $this->redis->incr("global:nextQuizId");
+        $quiz->setId($quizId);
         $this->redis->hmset("scrumQuiz:$quizId", $quiz->toArray());
         $this->redis->lpush("user:$uid:scrumQuizs", $quizId);
         $this->redis->lpush("global:scrumQuizs", $quizId);
 
         return $quizId;
     }
+
+    public function findAll()
+    {
+        $quizIds = $this->redis->lrange("global:scrumQuizs", 0, -1);
+        $scrumQuizs = array();
+
+        foreach($quizIds as $id) {
+            $scrumQuizs[$id] = $this->find($id);
+        }
+
+        return $scrumQuizs;
+    }
+
+    public function find($id)
+    {
+        $quizArray = $this->redis->hgetall("scrumQuiz:$id");
+        $scrumQuiz = new ScrumQuiz();
+
+        return $scrumQuiz->fromArray($quizArray);
+    }
+
 }
 

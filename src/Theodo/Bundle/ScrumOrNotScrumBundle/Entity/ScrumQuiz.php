@@ -50,7 +50,7 @@ class ScrumQuiz
 
     public function getAnswer()
     {
-        return $this->answer;
+        return (bool) $this->answer;
     }
 
     public function setAnswer($answer)
@@ -63,9 +63,18 @@ class ScrumQuiz
     public function toArray()
     {
         $array = get_object_vars($this);
-        unset($array['id']);
 
         return $array;
+    }
+
+    public function fromArray(array $array)
+    {
+         foreach($array as $key => $value)
+         {
+             $this->{$key} = $value;
+         }
+
+        return $this;
     }
 }
 
