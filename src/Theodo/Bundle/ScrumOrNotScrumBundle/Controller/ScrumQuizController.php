@@ -5,24 +5,43 @@ namespace Theodo\Bundle\ScrumOrNotScrumBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration as Config;
 
-use Theodo\Bundle\ScrumOrNotScrumBundle\Entity\User;
+use Symfony\Component\HttpFoundation\Request;
+use Theodo\Bundle\ScrumOrNotScrumBundle\Form\RegisterScrumQuizType;
+use Theodo\Bundle\ScrumOrNotScrumBundle\Entity\ScrumQuiz;
 
 class ScrumQuizController extends Controller
 {
     /**
-     * @param $name
+     * @Config\Route("/")
+     * @Config\Template()
      *
-     * @Config\Route("/hello/{name}")
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return array
      */
-    public function indexAction($name)
+    public function indexAction()
     {
-        $user = new User();
-        $user->setName($name);
+        return array();
+    }
 
-        $this->get('theodo_scrum_or_not_scrum.manager.user')->register($user);
+    /**
+     * @param Request $request
+     *
+     * @Config\Route("/add-scrum-quiz")
+     * @Config\Template()
+     *
+     * @return array
+     */
+    public function addScrumQuizAction(Request $request)
+    {
+        // Generate Form
+        $form = $this->createForm(new RegisterScrumQuizType(), new ScrumQuiz);
 
-        return $this->render('TheodoScrumOrNotScrumBundle:Default:index.html.twig', array('user' => $user));
+        // Handle the request
+
+        // Save the quiz through a ScrumQuizManager service
+
+        // Redirect somewhere
+        return array(
+            'form' => $form->createView()
+        );
     }
 }

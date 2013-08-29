@@ -2,7 +2,7 @@
 
 namespace Theodo\Bundle\ScrumOrNotScrumBundle\Entity;
 
-class ScrumQuizz
+class ScrumQuiz
 {
     private $id;
 
