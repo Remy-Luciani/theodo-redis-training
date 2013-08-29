@@ -22,13 +22,14 @@ class UserManager
     {
         $name = $user->getName();
 
-        if (!$this->findByName($name)) {
+        $userFromRedis = $this->findByName($name);
+        if (!$userFromRedis) {
             $uid = $this->redis->incr('global:nextUid');
             $this->redis->set("user:$uid:name", $name);
             $this->redis->set("username:$name:uid", $uid);
+        } else {
+            $uid = $userFromRedis->getId();
         }
-
-        $uid = $this->redis->get("global:nextUid");
 
         return $uid;
     }
