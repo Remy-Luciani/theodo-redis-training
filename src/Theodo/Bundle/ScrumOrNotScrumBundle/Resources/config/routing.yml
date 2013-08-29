@@ -1,3 +1,0 @@
-theodo_scrum_or_not_scrum_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: TheodoScrumOrNotScrumBundle:Default:index }

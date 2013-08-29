@@ -3,11 +3,19 @@
 namespace Theodo\Bundle\ScrumOrNotScrumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration as Config;
 
 use Theodo\Bundle\ScrumOrNotScrumBundle\Entity\User;
 
-class DefaultController extends Controller
+class ScrumQuizController extends Controller
 {
+    /**
+     * @param $name
+     *
+     * @Config\Route("/hello/{name}")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction($name)
     {
         $user = new User();
