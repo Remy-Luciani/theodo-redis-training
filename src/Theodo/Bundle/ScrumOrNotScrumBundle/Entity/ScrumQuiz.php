@@ -6,7 +6,7 @@ class ScrumQuiz
 {
     private $id;
 
-    private $authorId;
+    private $authorName;
 
     private $question;
 
@@ -24,14 +24,14 @@ class ScrumQuiz
         return $this;
     }
 
-    public function getAuthorId()
+    public function getAuthorName()
     {
-        return $this->authorId;
+        return $this->authorName;
     }
 
-    public function setAuthorId($authorId)
+    public function setAuthorName($authorName)
     {
-        $this->authorId = $authorId;
+        $this->authorName = $authorName;
 
         return $this;
     }

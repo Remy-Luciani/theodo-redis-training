@@ -11,9 +11,8 @@ class RegisterScrumQuizType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('author', 'text', array(
+            ->add('authorName', 'text', array(
                 'required' => true,
-                'mapped'   => false,
             ))
             ->add('question', 'textarea', array(
                 'required' => true,
