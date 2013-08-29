@@ -56,4 +56,29 @@ class ScrumQuizController extends Controller
             'form' => $form->createView()
         );
     }
+
+    /**
+     * @param Request $request
+     * @param integer $quizId
+     * @Config\Route("/answer-scrum-quiz/{quizId}")
+     * @Config\Template()
+     *
+     * @return array
+     */
+    public function answerScrumQuizAction(Request $request, $quizId)
+    {
+        // Retrieve the quiz
+        $scrumQuiz = $this->get('theodo_scrum_or_not_scrum.manager.scrum_quiz')->find($quizId);                
+
+        // Create small answer form
+
+        // Manage the request and the form data
+
+        // Check user answer and keep the result
+
+        // Return the quiz, the form and the result if it exists yet
+        return array(
+            'scrumQuiz' => $scrumQuiz,
+        );
+    }
 }

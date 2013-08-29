@@ -2,6 +2,6 @@
 <a href="{{ path('theodo_scrumornotscrum_scrumquiz_addscrumquiz') }}">Ajouter une question scrum</a>
 <ul>
     {% for quiz in scrumQuizs %}
-        <li>{{ quiz.id }}</li>
+        <li><a href="{{ path('theodo_scrumornotscrum_scrumquiz_answerscrumquiz', { 'quizId': quiz.id }) }}">{{ quiz.id }}</a></li>
     {% endfor %}
 </ul>
