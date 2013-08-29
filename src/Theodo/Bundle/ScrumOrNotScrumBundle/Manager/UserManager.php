@@ -20,12 +20,13 @@ class UserManager
 
     public function register(User $user)
     {
-        $uid = $this->redis->incr('global:nextUid');
-
         $name = $user->getName();
 
-        $this->redis->set("user:$uid:name", $name);
-        $this->redis->set("username:$name:uid", $uid);
+        if (!$this->findByName($name)) {
+            $uid = $this->redis->incr('global:nextUid');
+            $this->redis->set("user:$uid:name", $name);
+            $this->redis->set("username:$name:uid", $uid);
+        }
     }
 
     public function find($uid)
@@ -39,9 +40,15 @@ class UserManager
 
     public function findByName($name)
     {
-        $user = new User();
-        $user->setName($name);
-        $user->setId($this->redis->get("username:$name:uid");
+        $uid = $this->redis->get("username:$name:uid");
+
+        if (null != $uid) {
+            $user = new User();
+            $user->setName($name);
+            $user->setId($uid);
+        } else {
+            $user = null;
+        }
 
         return $user;
     }
