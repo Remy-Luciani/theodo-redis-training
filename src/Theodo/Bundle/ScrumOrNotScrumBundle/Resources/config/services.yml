@@ -1,7 +1,12 @@
 parameters:
     theodo_scrum_or_not_scrum.manager.user.class: Theodo\Bundle\ScrumOrNotScrumBundle\Manager\UserManager
+    theodo_scrum_or_not_scrum.manager.scrum_quiz.class: Theodo\Bundle\ScrumOrNotScrumBundle\Manager\ScrumQuizManager
 
 services:
     theodo_scrum_or_not_scrum.manager.user:
         class: %theodo_scrum_or_not_scrum.manager.user.class%
         arguments: ["@snc_redis.default"]
+    theodo_scrum_or_not_scrum.manager.scrum_quiz:
+        class: %theodo_scrum_or_not_scrum.manager.scrum_quiz.class%
+        arguments: ["@snc_redis.default", "@theodo_scrum_or_not_scrum.manager.user"]
+

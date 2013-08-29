@@ -27,6 +27,18 @@ class UserManager
             $this->redis->set("user:$uid:name", $name);
             $this->redis->set("username:$name:uid", $uid);
         }
+
+        $uid = $this->redis->get("global:nextUid");
+
+        return $uid;
+    }
+
+    public function saveByName($name)
+    {
+        $user = new User();
+        $user->setName($name);
+
+        return $this->register($user);
     }
 
     public function find($uid)

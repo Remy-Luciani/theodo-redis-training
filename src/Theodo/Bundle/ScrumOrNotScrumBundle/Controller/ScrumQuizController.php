@@ -40,6 +40,7 @@ class ScrumQuizController extends Controller
             $form->submit($request);
             if ($form->isValid()) {
                 // Save the quiz through a ScrumQuizManager service
+                $this->get('theodo_scrum_or_not_scrum.manager.scrum_quiz')->save($form->getData());                
 
                 // Redirect somewhere
                 return $this->redirect($this->generateUrl('theodo_scrumornotscrum_scrumquiz_index'));

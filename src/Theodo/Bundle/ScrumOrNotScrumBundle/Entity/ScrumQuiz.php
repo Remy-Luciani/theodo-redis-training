@@ -55,8 +55,17 @@ class ScrumQuiz
 
     public function setAnswer($answer)
     {
-        $this->answer = $answer;
+        $this->answer = (bool) $answer;
 
         return $this;
     }
+
+    public function toArray()
+    {
+        $array = get_object_vars($this);
+        unset($array['id']);
+
+        return $array;
+    }
 }
+

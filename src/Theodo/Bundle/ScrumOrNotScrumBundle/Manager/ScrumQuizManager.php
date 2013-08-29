@@ -4,6 +4,7 @@ namespace Theodo\Bundle\ScrumOrNotScrumBundle\Manager;
 
 use Theodo\Bundle\ScrumOrNotScrumBundle\Entity\User;
 use Theodo\Bundle\ScrumOrNotScrumBundle\Manager\UserManager;
+use Theodo\Bundle\ScrumOrNotScrumBundle\Entity\ScrumQuiz;
 
 use Predis\Client as Redis;
 
@@ -25,38 +26,16 @@ class ScrumQuizManager
         $this->userManager = $userManager;
     }
 
-    public function register(User $user)
+    public function save(ScrumQuiz $quiz)
     {
-        $name = $user->getName();
+        $uid = $this->userManager->saveByName($quiz->getAuthorName());
 
-        if (!$this->findByName($name)) {
-            $uid = $this->redis->incr('global:nextUid');
-            $this->redis->set("user:$uid:name", $name);
-            $this->redis->set("username:$name:uid", $uid);
-        }
-    }
+        $quizId = $this->redis->incr("global:nextQuizId");
+        $this->redis->hmset("scrumQuiz:$quizId", $quiz->toArray());
+        $this->redis->lpush("user:$uid:scrumQuizs", $quizId);
+        $this->redis->lpush("global:scrumQuizs", $quizId);
 
-    public function find($uid)
-    {
-        $user = new User();
-        $user->setId($uid);
-        $user->setName($this->redis->get("user:$uid:name"));
-
-        return $user;
-    }
-
-    public function findByName($name)
-    {
-        $uid = $this->redis->get("username:$name:uid");
-
-        if (null != $uid) {
-            $user = new User();
-            $user->setName($name);
-            $user->setId($uid);
-        } else {
-            $user = null;
-        }
-
-        return $user;
+        return $quizId;
     }
 }
+
