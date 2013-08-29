@@ -1,3 +1,13 @@
 <h1>Scrum ou pas Scrum ?</h1>
 <h3>Auteur : {{ scrumQuiz.authorName }}</h3>
-<p>{{ scrumQuiz.question }}</p>
+<p>Question : <em>{{ scrumQuiz.question }}</em></p>
+<form action="{{ path('theodo_scrumornotscrum_scrumquiz_answerscrumquiz', {'quizId': scrumQuiz.id}) }}" method="POST">
+    {{ form_widget(form.answer) }}
+    {{ form_rest(form) }}
+</form>
+{% if result is defined and result is not null%}
+    <p style="color: {{ result ? 'green' : 'red'  }};"><strong>{{ result ? 'Bonne réponse !' : 'Retourne vite en scrum dojo...' }}</strong></p>
+{% endif %}
+
+<a href="/">Index</a>
+

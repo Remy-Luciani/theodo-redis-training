@@ -71,14 +71,34 @@ class ScrumQuizController extends Controller
         $scrumQuiz = $this->get('theodo_scrum_or_not_scrum.manager.scrum_quiz')->find($quizId);                
 
         // Create small answer form
+        $form = $this->createFormBuilder(new ScrumQuiz())
+            ->add('answer', 'choice', array(
+                'choices' => array(
+                    true   => "Oui",
+                    false  => "Non",
+                ),
+                'required'   => true,
+                'expanded'   => true,
+            ))
+            ->add('Repondre', 'submit')
+            ->getForm();
+
+        $result = null;
 
         // Manage the request and the form data
-
-        // Check user answer and keep the result
+        if ($request->isMethod('POST')) {
+            $form->submit($request);
+            if ($form->isValid()) {
+                // Check user answer and keep the result
+                $result = $form->getData()->getAnswer() === $scrumQuiz->getAnswer();
+            }
+        }
 
         // Return the quiz, the form and the result if it exists yet
         return array(
             'scrumQuiz' => $scrumQuiz,
+            'form'      => $form->createView(),
+            'result'    => $result,
         );
     }
 }
